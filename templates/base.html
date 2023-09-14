@@ -37,12 +37,12 @@
   <body>
     <header class="container-fluid fixed-top"> 
       <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
-        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-centre text-lg-left">
+        <div class="col-12 col-lg-3 my-auto py-1 py-lg-0 text-center text-lg-left">
           <a href="{% url 'home' %}" class="nav-link main-logo-link">
             <h2 class="logo-font text-black my-0"><strong>Eye in the Sky</strong></h2>
           </a>
         </div>
-        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+        <div class="col-12 col-lg-5 my-auto py-1 py-lg-0">
           <form methods="GET" action="">
             <div class="input-group w-100">
               <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our Site!">
@@ -55,7 +55,21 @@
           </form>
         </div>
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-          <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+          <ul class="list-inline list-unstyled text-center text-lg-right my-0 d-flex align-items-center justify-content-end">
+            <li class="list-inline-item">
+              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+                <div class="text-center">
+                  <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                  <p class="my-0">
+                    {% if grand_total %}
+                      ${{ grand_total|floatformat:2 }}
+                    {% else %}
+                      $0.00
+                    {% endif %}
+                  </p>
+                </div>
+              </a>
+            </li>
             <li class="list-inline-item dropdown">
               <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="text-center">
@@ -76,22 +90,9 @@
                 {% endif %}  
               </div>
             </li>
-            <li class="list-inline-item"></li>
-              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
-                <div class="text-center">
-                  <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                  <p class="my-0">
-                    {% if grad_total %}
-                      ${{ grand_total|floatformat:2 }}
-                    {% else %}
-                      $0.00
-                    {% endif %}
-                  </p>
-                </div>
-              </a>
           </ul>
         </div>
-      </div>
+                
       <div class="row bg-white">
         <nav class="navbar navbar-expand-lg navbar-light w-100">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
