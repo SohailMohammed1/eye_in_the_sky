@@ -87,6 +87,19 @@ a.category-badge > span.badge:hover {
 .btt-link {
     cursor: pointer; 
 }
+
+.delivery-message {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.navbar {
+    margin: 0 auto; /* Center the navbar */
+}
+
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
