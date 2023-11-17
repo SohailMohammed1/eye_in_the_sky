@@ -35,7 +35,6 @@
                                 </tr>
                             </thead>
 
-
                             {% for item in bag_items %}
                             <tr>
                                 <td class="p-3 w-25">
@@ -49,13 +48,13 @@
                                     <p class="my-0">${{ item.product.price }}</p>
                                 </td>
                                 <td class="py-3 w-25">
-                                    <form class="form update-form" method="POST" action="">
+                                    <form class="form update-form" method="POST" action="{% url 'adjust_bag' item_id=item.item_id %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <button class="decrement-qty btn btn-sm btn-black rounded-0"
-                                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}" type="button">
                                                         <span>
                                                             <i class="fas fa-minus fa-sm"></i>
                                                         </span>
@@ -67,7 +66,7 @@
                                                     id="id_qty_{{ item.item_id }}">
                                                 <div class="input-group-append">
                                                     <button class="increment-qty btn btn-sm btn-black rounded-0"
-                                                        data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                        data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}" type="button">
                                                         <span>
                                                             <i class="fas fa-plus fa-sm"></i>
                                                         </span>
@@ -76,8 +75,8 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <a class="update-link text-info"><small>Update</small></a>
-                                    <a class="update-link text-danger float-right" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
+                                    <a href="#" class="update-link text-info"><small>Update</small></a>
+                                    <a href="#" class="remove-link text-danger float-right" id="remove_{{ item.item_id }}"><small>Remove</small></a>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0">${{ item.product.price }}</p>                                    
@@ -91,7 +90,7 @@
                                     <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
                                     {% if free_delivery_delta > 0 %}
                                         <p class="mb-1 text-danger">
-                                            You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
+                                            Spend <strong>${{ free_delivery_delta }}</strong> more for free delivery!
                                         </p>
                                     {% endif %}
                                 </td>
@@ -104,7 +103,7 @@
                                         </span>
                                         <span class="text-uppercase">Keep Shopping</span>
                                     </a>
-                                    <a href="" class="btn btn-black rounded-0 btn-lg">
+                                    <a href="{%  url 'view_bag'  %}" class="btn btn-black rounded-0 btn-lg"> <!-- Adjust the URL name as needed -->
                                         <span class="text-uppercase">Secure Checkout</span>
                                         <span class="icon">
                                             <i class="fas fa-lock"></i>
@@ -112,8 +111,6 @@
                                     </a>
                                 </td>
                             </tr>
-
-
                         </table>
                     </div>
                 {% else %}
@@ -136,19 +133,25 @@
 
 <script type="text/javascript">
     $('.update-link').click(function(e) {
+        e.preventDefault();
         var form = $(this).prev('.update-form');
         form.submit();
-    })
+    });
 
-    $('.remove-item').click(function(e) {
-        var csrfToken = "{{ csrf_token }}"
+    $('.remove-link').click(function(e) {
+        e.preventDefault();
+        var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
-        var url = `bag/remove/${itemId}`;
+        var url = `/bag/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken, 'item_id': itemId}; 
 
         $.post(url, data)
         .done(function() {
             location.reload();
         })
-    })
+        .fail(function() {
+            alert('There was an error removing the item. Please try again.');
+        });
+    });
 </script>
 {% endblock %}
