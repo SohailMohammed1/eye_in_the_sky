@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from products.models import Product
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
   # Import your Product model here
 
 def view_bag(request):
@@ -34,3 +36,29 @@ def adjust_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect(reverse('view_bag'))
+
+
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
+
+def remove_from_bag(request, item_id):
+    """Remove the specified product from the shopping bag."""
+    
+    bag = request.session.get('bag', {})
+
+    try:
+        item_id_str = str(item_id)  # Convert item_id to string
+        if item_id_str in bag:
+            bag.pop(item_id_str)  # Remove the item from the bag
+            request.session['bag'] = bag  # Update the session bag
+            request.session.modified = True  # Mark the session as "modified" to make sure it gets saved
+            messages.success(request, "Item removed from your bag.")
+        else:
+            messages.error(request, "Item not found in your bag.")
+    except Exception as e:
+        messages.error(request, f"Error removing item: {e}")
+
+    return redirect('view_bag')  
+
+    
+
