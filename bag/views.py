@@ -52,31 +52,29 @@ def adjust_bag(request, item_id):   # Adjust bag
 
 
 
-def remove_from_bag(request, item_id): # remove from bag
-    """Remove the specified product from the shopping bag."""
-    
+def remove_from_bag(request, item_id):
     bag = request.session.get('bag', {})
 
     try:
         product = get_object_or_404(Product, pk=item_id)
-        item_id_str = str(item_id)  # Convert item_id to string
+        item_id_str = str(item_id)
         if item_id_str in bag:
-            bag.pop(item_id_str)  # Remove the item from the bag
-            request.session['bag'] = bag  # Update the session bag
-            request.session.modified = True  # Mark the session as "modified" to make sure it gets saved
+            bag.pop(item_id_str)
+            request.session['bag'] = bag
+            request.session.modified = True
             messages.success(request, "Item removed from your bag.")
         else:
             bag.pop(item_id)
             messages.success(request, f'Removed {product.name} from your bag')
 
-        request.session['bag']
-        return HttpResponse(status=200)
-
     except Exception as e:
         messages.error(request, f"Error removing item: {e}")
         return HttpResponse(status=500)
 
-    return redirect('view_bag')  
+    return redirect('view_bag')
+ 
 
     
+
+
 
