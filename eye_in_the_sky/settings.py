@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'bag', 
     'checkout', 
 
+    #Others
+    'cripsy_forms'
 ]
 
 MIDDLEWARE = [
@@ -61,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'eye_in_the_sky.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 
 
 TEMPLATES = [
     {
@@ -80,6 +84,10 @@ TEMPLATES = [
                 
                 
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags'
+                'crispy_forms.templatetags.crispy_forms_field'
+            ]
         },
     },
 ]
