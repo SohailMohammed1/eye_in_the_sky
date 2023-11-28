@@ -51,16 +51,14 @@ var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
-    card.update({ 'disabled': true });
+    card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
-
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
         }
     }).then(function(result) {
         if (result.error) {
-            // Inform the user if there was an error
             var errorDiv = document.getElementById('card-errors');
             var html = `
                 <span class="icon" role="alert">
@@ -69,24 +67,12 @@ form.addEventListener('submit', function(ev) {
                 <span>${result.error.message}</span>
             `;
             $(errorDiv).html(html);
-            card.update({ 'disabled': false });
+            card.update({ 'disabled': false});
             $('#submit-button').attr('disabled', false);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
-                // Clear the form here
-                form.reset();
-                card.clear();
-
-                // Optionally, redirect the user or display a success message
-                // window.location.href = "/success-page"; // Redirect to a success page
-                // or
-                messages.success(request, "Your payment was successful!"); // Display a success message
-
-                // Re-enable the card and submit button
-                card.update({ 'disabled': false });
-                $('#submit-button').attr('disabled', false);
+                form.submit();
             }
         }
     });
 });
-
