@@ -45,7 +45,7 @@
           </a>
         </div>
         <div class="col-12 col-lg-5 my-auto py-1 py-lg-0">
-          <form methods="GET" action="{% url 'products' %}">
+          <form method="GET" action="{% url 'products' %}">
             <div class="input-group w-100">
               <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our Site!" aria-describedby="search-icon">
               <div class="input-group-append">
@@ -107,7 +107,7 @@
           </nav>
         </div>
         <br>
-        <div id="delivery-banner" clas="row text-center">
+        <div id="delivery-banner" class="row text-center">
           <div class="col bg-black text-white">
             <h4 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}</h4>
           </div>
