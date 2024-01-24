@@ -12,7 +12,7 @@ import stripe
 def webhook(request):
     """Listen for webhooks from Stripe"""
     #Setup
-    wh_secret = settings.STRIPE.WH.wh_secret
+    wh_secret = settings.STRIPE_WH_KEY
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     # Get the webhook data and verify its signatures 
