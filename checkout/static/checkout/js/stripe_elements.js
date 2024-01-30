@@ -7,27 +7,26 @@
 */
 
 // Define the style variable before using it to create the card element
+var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+var clientSecret = $('#id_client_secret').text().slice(1, -1);
+var stripe = Stripe(stripePublicKey);
+var elements = stripe.elements();
 var style = {
     base: {
-        color: "#000",
+        color: '#000',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: "antialiased",
+        fontSmoothing: 'antialiased',
         fontSize: '16px',
         '::placeholder': {
             color: '#aab7c4'
         }
     },
     invalid: {
-        color: "#dc3545",
-        iconColor: "#dc3545"
+        color: '#dc3545',
+        iconColor: '#dc3545'
     }
 };
-
-var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
-var clientSecret = $('#id_client_secret').text().slice(1, -1);
-var stripe = Stripe(stripePublicKey);
-var elements = stripe.elements();
-var card = elements.create('card', { style: style });
+var card = elements.create('card', {style: style});
 card.mount('#card-element');
 
 // Handle realtime validation errors on the card element
@@ -66,7 +65,7 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
-    $.post(url, postData).done(function() {
+    $.post(url, postData).done(function () {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -95,17 +94,14 @@ form.addEventListener('submit', function(ev) {
                     state: $.trim(form.county.value),
                 }
             },
-        
-        
         }).then(function(result) {
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
                     <span class="icon" role="alert">
-                        <i class="fas fa-times"></i>
+                    <i class="fas fa-times"></i>
                     </span>
-                    <span>${result.error.message}</span>
-                `;
+                    <span>${result.error.message}</span>`;
                 $(errorDiv).html(html);
                 $('#payment-form').fadeToggle(100);
                 $('#loading-overlay').fadeToggle(100);
@@ -117,8 +113,8 @@ form.addEventListener('submit', function(ev) {
                 }
             }
         });
-    }).fail(function() {
+    }).fail(function () {
         // just reload the page, the error will be in django messages
-        location.reload(); 
+        location.reload();
     })
 });
