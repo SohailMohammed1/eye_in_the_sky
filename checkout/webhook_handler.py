@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.template.loader import render_to_string
 from django.conf import settings
 
 from .models import Order, OrderLineItem
@@ -144,7 +145,6 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
         self._send_confirmation_email(order)
-
         intent = event.data.object
         print(intent) 
         return HttpResponse(
