@@ -1,2 +1,2 @@
-web: gunicorn eye-in-the-sky.wsgi:application
+web: gunicorn eye_in_the_sky.wsgi:application
 
