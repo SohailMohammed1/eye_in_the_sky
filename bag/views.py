@@ -93,3 +93,4 @@ def remove_from_bag(request, item_id):
         messages.error(request, f"Error removing item: {e}")
 
     return redirect('view_bag')  
+
