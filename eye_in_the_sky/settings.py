@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-d^m)1&v(-6&-l%l6gqj%egh5)p+$kb+_^0inul1uj^69@^a5dm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eye-in-the-sky.herokuapp.com', 'localhost'] 
+ALLOWED_HOSTS = ['eye-in-the-sky-12de37093124.herokuapp.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
