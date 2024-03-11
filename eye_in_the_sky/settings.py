@@ -198,6 +198,7 @@ if 'USE_AWS' in os.eviron:
     MEDIAFILES_LOCATION = 'media' 
 
     # Override static and media URLs in production
+    # second deployment attempt
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
