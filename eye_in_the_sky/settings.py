@@ -220,3 +220,18 @@ STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_KEY', '')
 DEFAULT_FROM_EMAIL = 'eyeinthesky@example.com'
+
+
+# {
+# 	"Version": "2012-10-17",
+# 	"Id": "Policy1709751879538",
+# 	"Statement": [
+# 		{
+# 			"Sid": "Stmt1709751877764",
+# 			"Effect": "Allow",
+# 			"Principal": "*",
+# 			"Action": "s3:GetObject",
+# 			"Resource": "arn:aws:s3:::sm1-eye-in-the-sky/*"
+# 		}
+# 	]
+# } 
